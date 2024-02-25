@@ -1,0 +1,33 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  text-decoration: none;
+  list-style: none;
+}
+
+body {
+  scroll-behavior: smooth;
+  background-color: var(--bg-color);
+  color: var(--white-color);
+  font-family: Avenir-Roman, sans-serif;
+}
+
+img {
+  display: block;
+  width: 100%;
+}
+
+:root {
+  --black-color: #000;
+  --bg-color: #040714;
+  --white-color: #f9f9f9;
+  --font-color: #f9f9f9ee;
+  --accent-color: #0063e5;
+}
+
+button {
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
