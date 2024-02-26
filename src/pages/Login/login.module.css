@@ -24,7 +24,7 @@
 .ctaBtn {
   width: 100%;
   padding: 1.2vw 0;
-  font-size: 1.3rem;
+  font-size: var(--fs30);
   color: var(--white-color);
   background-color: var(--accent-color);
   border-radius: 5px;
@@ -35,7 +35,7 @@
   opacity: 0.9;
 }
 p {
-  font-size: 0.8rem;
+  font-size: var(--fs20);
   line-height: 1.5;
   letter-spacing: 1.5px;
   text-align: center;

@@ -8,7 +8,7 @@ a.link img {
   width: 2vw;
 }
 a.link span {
-  font-size: 1vw;
+  font-size: var(--fs20);
   color: var(--font-color);
   text-transform: uppercase;
   margin-left: 0.3vw;

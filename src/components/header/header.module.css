@@ -10,16 +10,14 @@ header {
   justify-content: space-between;
 }
 
-.left {
-  display: flex;
-  align-items: center;
-}
-
 .logo {
   width: 7%;
   min-width: 5rem;
 }
 
+nav {
+  flex-grow: 1;
+}
 nav ul {
   display: flex;
   align-items: center;
@@ -27,8 +25,9 @@ nav ul {
   gap: 2vw;
 }
 
-.login {
-  font-size: 1.1vw;
+.login,
+.logout {
+  font-size: var(--fs20);
   border: 1px solid var(--white-color);
   background: transparent;
   color: var(--white-color);
@@ -37,8 +36,20 @@ nav ul {
   border-radius: 3px;
 }
 
-.login:hover {
+.logout {
+  position: absolute;
+  right: 8%;
+}
+
+.login:hover,
+.logout:hover {
   background-color: var(--white-color);
   border-color: transparent;
   color: var(--bg-color);
+}
+
+.userImage {
+  height: var(--fs70);
+  width: var(--fs70);
+  border-radius: 50%;
 }
