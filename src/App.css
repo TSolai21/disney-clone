@@ -102,3 +102,26 @@ button {
   outline: none;
   cursor: pointer;
 }
+
+/* slider  */
+
+.swiper:hover .swiper-button-prev {
+  opacity: 1;
+}
+.swiper:hover .swiper-button-next {
+  opacity: 1;
+}
+.swiper-button-prev,
+.swiper-button-next {
+  opacity: 0;
+  transition: 0.4s;
+}
+.swiper-button-prev::after,
+.swiper-button-next::after {
+  color: var(--white-color);
+  font-size: var(--fs40) !important;
+}
+
+.swiper-pagination-bullet {
+  background: var(--white-color) !important;
+}

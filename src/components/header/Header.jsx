@@ -9,15 +9,22 @@ import { auth, provider } from "../../firebase";
 import { signInWithPopup, signOut } from "firebase/auth";
 import { useDispatch, useSelector } from "react-redux";
 import userSlice from "../../redux/userSlice";
+
+import { setToken, clearToken } from "../../redux/authSlice";
+
+import { useNavigate } from "react-router-dom";
 const Header = () => {
   const user = useSelector((state) => state.user);
+  const { isAuthenticated } = useSelector((state) => state.auth);
 
   const [userData, setUserData] = useState(user);
   const dispatch = useDispatch();
+
+  const navigate = useNavigate();
   const handleAuth = () => {
     signInWithPopup(auth, provider)
       .then((result) => {
-        const { displayName, email, photoURL } = result.user;
+        const { displayName, email, photoURL, accessToken } = result.user;
 
         dispatch(
           userSlice.actions.setUser({
@@ -26,6 +33,18 @@ const Header = () => {
             photo: photoURL,
           })
         );
+
+        dispatch(setToken(accessToken));
+
+        localStorage.setItem(
+          "userData",
+          JSON.stringify({
+            name: displayName,
+            email,
+            photo: photoURL,
+          })
+        );
+        navigate("/home");
       })
       .catch((err) => {
         console.log(err);
@@ -36,6 +55,9 @@ const Header = () => {
     signOut(auth)
       .then(() => {
         // Sign-out successful.
+        dispatch(clearToken());
+        localStorage.removeItem("userData");
+        navigate("/");
       })
       .catch((error) => {
         // An error happened.
@@ -44,9 +66,7 @@ const Header = () => {
   };
 
   useEffect(() => {
-    setUserData(user);
-
-    console.log(user, "done");
+    setUserData(JSON.parse(localStorage.getItem("userData")));
   }, [user]);
   return (
     <>
@@ -54,21 +74,27 @@ const Header = () => {
         <div className={styles.logo}>
           <img src={imageSources.logo} alt="logo" />
         </div>
-        <nav>
-          <ul>
-            {navdata.map(({ text, image, path }) => {
-              return (
-                <li>
-                  <Navlink text={text} image={image} link={path} />
-                </li>
-              );
-            })}
-          </ul>
-        </nav>
+        {isAuthenticated && (
+          <nav>
+            <ul>
+              {navdata.map(({ text, image, path }) => {
+                return (
+                  <li>
+                    <Navlink text={text} image={image} link={path} />
+                  </li>
+                );
+              })}
+            </ul>
+          </nav>
+        )}
 
-        {userData.name != "" ? (
+        {isAuthenticated ? (
           <>
-            <img src={user.photo} className={styles.userImage} alt="user" />
+            <img
+              src={userData?.photo}
+              className={styles.userImage}
+              alt="user"
+            />
             <Button
               onclick={handleLogOut}
               classname={styles.logout}
